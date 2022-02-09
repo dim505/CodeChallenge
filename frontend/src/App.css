@@ -1,6 +1,5 @@
 header {
   width: 100%;
-  background-color: grey;
   margin: 0;
   padding: 20px;
 }
@@ -16,4 +15,14 @@ header > ul > li {
 
 .mainContent {
   padding: 1em;
+}
+
+
+//CSS for Nav bar
+a {
+	text-decoration: inherit;
+}
+
+.NavButton {
+	color: black !important;
 }

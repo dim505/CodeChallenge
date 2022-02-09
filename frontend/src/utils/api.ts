@@ -3,9 +3,9 @@ import { Department, Employee } from '../models/Models'
 import { HTTPMethod, Service, Request, request } from './_abstract'
 
 
-
+//fixed  bug that stopped department list from load
 const Requests = {
-    departments: new Request<Department[]>(HTTPMethod.get, "v1/department"),
+    departments: new Request<Department[]>(HTTPMethod.get, "v1/departments"),
     employees: new Request<Employee[]>(HTTPMethod.get, 'v1/employees')
 }
 

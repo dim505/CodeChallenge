@@ -1,6 +1,63 @@
 import { Router, Response, Request } from 'express'
+import {notFound}  from "../lib/errors"
+//import { request } from 'http'
 
 const router: Router = Router()
+
+
+
+//refactored employee data so it can be used by multiple end points
+var employees = [
+	{
+			id: "82837",
+			name: "Bob Smith",
+			birthday: new Date("1985-09-27"),
+			bio: "Bob has been programming computers for entirely too long!",
+			departmentId: "3"
+	},
+	{
+			id: "81832",
+			name: "Ada Burr",
+			birthday: new Date("1985-10-18"),
+			bio: "Ada loves full stack development.",
+			departmentId: "4"
+	},
+	{
+			id: 82338,
+			name: "Molly Davis",
+			birthday: new Date("1985-09-27"),
+			bio: "Molly once found a bug in a compiler",
+			departmentId: "2"
+	},
+	{
+			id: "32673",
+			name: "François Allende",
+			birthday: new Date("1985-09-27"),
+			bio: "François is the best QA engineer West of the Susquehanna river.",
+			departmentId: "2"
+	},
+	{
+			id: "zc",
+			name: "Juan Cortez",
+			birthday: '1984-09-22',
+			bio: "Juan's been programming computers since the days of ATARI BASIC.",
+			departmentId: "4"
+	}
+]
+
+
+//endpoint that returns employees for a paticular department 
+router.get('/v1/departments/:id', (_req: Request, res: Response) => {
+	//returns an array of employees matching the dapartment ID 
+	var result = employees.filter((employee) => employee.departmentId == _req.params.id )
+	//returns error if nothing is found
+	if (result.length == 0) {
+		res.send(notFound)
+	}
+	else {res.send(result)}
+
+})
+
 
 router.get('/v1/departments', (_req: Request, res: Response) => {
     res.send([
@@ -24,43 +81,7 @@ router.get('/v1/departments', (_req: Request, res: Response) => {
 
 router.get('/v1/employees', (_unused: Request, res: Response) => {
 
-    res.send([
-        {
-            id: "82837",
-            name: "Bob Smith",
-            birthday: new Date("1985-09-27"),
-            bio: "Bob has been programming computers for entirely too long!",
-            departmentId: "3"
-        },
-        {
-            id: "81832",
-            name: "Ada Burr",
-            birthday: new Date("1985-10-18"),
-            bio: "Ada loves full stack development.",
-            departmentId: "4"
-        },
-        {
-            id: 82338,
-            name: "Molly Davis",
-            birthday: new Date("1985-09-27"),
-            bio: "Molly once found a bug in a compiler",
-            departmentId: "2"
-        },
-        {
-            id: "32673",
-            name: "François Allende",
-            birthday: new Date("1985-09-27"),
-            bio: "François is the best QA engineer West of the Susquehanna river.",
-            departmentId: "2"
-        },
-        {
-            id: "zc",
-            name: "Juan Cortez",
-            birthday: '1984-09-22',
-            bio: "Juan's been programming computers since the days of ATARI BASIC.",
-            departmentId: "4"
-        }
-    ])
+    res.send(employees)
 })
 
 export default router
